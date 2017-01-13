@@ -24,9 +24,9 @@ function revDel(options, cb) {
 		var newManifest = getManifest(options.newManifest);
 		var oldFiles = getChanged(oldManifest, newManifest);
 
-		if (options.base) {
+		if (options.dest) {
 			oldFiles = _.map(oldFiles, function (file) {
-				return path.join(options.dest || options.base, file);
+				return path.resolve(options.dest || options.base, file);
 			});
 		}
 
@@ -42,7 +42,7 @@ function revDel(options, cb) {
 		if (options.oldManifest) {
 			options.oldManifest = getManifest(options.oldManifest, options.suppress);
 		} else {
-			options.oldManifest = getManifest(path.join(options.dest, file.path), options.suppress);
+			options.oldManifest = getManifest(path.resolve(options.dest, file.path), options.suppress);
 		}
 
 		try {
